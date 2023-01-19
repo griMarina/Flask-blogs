@@ -19,6 +19,23 @@ def create():
         flash('Blog created!')
         return redirect('/')
 
+@app.route('/blogs/<id>') # <string: page_id>
+def show_blog(id): #page_id
+    blog = get_blog_by_id(id)
+    return render_template('blog.html', blog=blog, title='Blog Details')
+
+@app.route('/blogs/delete/<id>')
+def delete_blog(id):
+    delete_blog_by_id(id)
+    flash('Blog deleted!')
+    return redirect('/')
+
+@app.route('/blogs/update/<id>')
+def update_blog(id):
+    # update_blog_by_id(id)
+    # flash('Blog updated!')
+    # return redirect('/')
+    pass
 
 if __name__ == '__main__':
     app.run()
