@@ -45,9 +45,21 @@ def delete_blog_by_id(id):
     blogs_collection = db['blogs']
     blogs_collection.find_one_and_delete({'_id': ObjectId(id)})
 
-def update_blog_by_id(id):
+def update_blog_by_id(form, id):
     blogs_collection = db['blogs']
-    blogs_collection.find_one_and_update({'_id': ObjectId(id)})
+
+    title = form['title']
+    snippet = form['snippet']
+    body = form['body']
+
+    blogs_collection.find_one_and_update(
+        {'_id': ObjectId(id)}, 
+            {'$set':
+                {
+                    'title': title, 'snippet': snippet, 'body': body
+                }
+            }
+        )
 
 
 db = connect_to_mongo()

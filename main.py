@@ -30,12 +30,16 @@ def delete_blog(id):
     flash('Blog deleted!')
     return redirect('/')
 
-@app.route('/blogs/update/<id>')
+@app.route('/blogs/update/<id>', methods=['POST', 'GET'])
 def update_blog(id):
-    # update_blog_by_id(id)
-    # flash('Blog updated!')
-    # return redirect('/')
-    pass
+    blog = get_blog_by_id(id)
+    if request.method == 'GET':
+        return render_template('update.html', blog=blog, title='Update Blog')
+    elif request.method == 'POST':
+        update_blog_by_id(request.form, id)
+        flash('Blog updated!')
+        return redirect('/')
+    
 
 if __name__ == '__main__':
     app.run()
